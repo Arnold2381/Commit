@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'customBottomNav.dart';
 import 'createtask.dart';
+import 'customBottomNav.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -10,10 +10,9 @@ class Dashboard extends StatelessWidget {
     return MaterialApp(
       home: DashboardScreen(),
       routes: <String, WidgetBuilder>{
-        '/Dashboard': (context)=> Dashboard(),
-        '/AddTask': (context)=> CreateTask(),
+        '/Dashboard': (context) => Dashboard(),
+        '/AddTask': (context) => CreateTask(),
       },
-      
     );
   }
 }
@@ -23,17 +22,15 @@ class DashboardScreen extends StatefulWidget {
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-
 List<TaskList> tasks = [
-    new TaskList("Write a blog post.", true),
-    new TaskList("Do Econ 210 homework.", true),
-    new TaskList("Make pasta for dinner.", false),
-  ];
-
+  new TaskList("Write a blog post.", true),
+  new TaskList("Do Econ 210 homework.", true),
+  new TaskList("Make pasta for dinner.", false),
+];
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  
-
+  String name = "Piyush Goel";
+  String dp = "assets/piyush.png";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               FlatButton(
                 onPressed: () {
-                Navigator.pushNamed(context,'/AddTask');
+                  Navigator.pushNamed(context, '/AddTask');
                 },
                 child: Text(
                   "Add a task",
@@ -105,7 +102,50 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Row(
+                children: [
+                  Image.asset(
+                    dp,
+                    scale: 1,
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: const Color(0xff324982),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
